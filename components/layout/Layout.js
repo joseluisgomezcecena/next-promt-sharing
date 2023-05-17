@@ -1,5 +1,5 @@
-import React from "react/index";
-import {Head} from "next/head";
+import React from "react";
+import Head from "next/head";
 import Script from "next/script";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
@@ -44,3 +44,5 @@ const Layout = ({children, title = "Jobbee"}) => {
         </div>
     )
 }
+
+export default Layout;
