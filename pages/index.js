@@ -8,10 +8,10 @@ const inter = Inter({ subsets: ['latin'] })
 import axios from "axios";
 import process from "next/dist/build/webpack/loaders/resolve-url-loader/lib/postcss";
 export default function Index({data}) {
-  console.log('jobs', data);
+  //console.log('jobs', data);
   return (
       <Layout>
-        <Home />
+        <Home  data={data}/>
       </Layout>
   )
 }
