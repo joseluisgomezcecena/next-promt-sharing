@@ -22,10 +22,12 @@ export default function JobDeailsPage({data}) {
 
 export async function getServerSideProps({params}){
     const response = await axios.get(`${process.env.API_URL}/api/jobs/${params.id}/`)
-    const data = response.data
+    const data = response.data.job;
+    const candidates = response.data.applications;
     return {
         props: {
             data,
+            candidates,
         }
     }
 }
