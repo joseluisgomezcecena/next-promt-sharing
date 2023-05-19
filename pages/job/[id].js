@@ -9,11 +9,17 @@ import Home from "@/components/Home";
 const inter = Inter({ subsets: ['latin'] })
 import axios from "axios";
 import process from "next/dist/build/webpack/loaders/resolve-url-loader/lib/postcss";
+import NotFound from "@/components/layout/NotFound";
 
 
 
-export default function JobDetailsPage({job, candidates}) {
+export default function JobDetailsPage({job, candidates, error}) {
     console.log('job:', job);
+    console.log('candidates:', candidates);
+    console.log('error:', error);
+
+    if (error.includes("Not found")) return <NotFound></NotFound>
+
     return (
         <Layout>
             <JobDetails job={job} candidates={candidates}/>
@@ -22,13 +28,24 @@ export default function JobDetailsPage({job, candidates}) {
 }
 
 export async function getServerSideProps({params}){
-    const response = await axios.get(`${process.env.API_URL}/api/jobs/${params.id}/`)
-    const job = response.data.job;
-    const candidates = response.data.applications;
-    return {
-        props: {
-            job,
-            candidates,
+    try
+    {
+        const response = await axios.get(`${process.env.API_URL}/api/jobs/${params.id}/`)
+        const job = response.data.job;
+        const candidates = response.data.applications;
+        return {
+            props: {
+                job,
+                candidates,
+            }
+        }
+    }
+    catch(error)
+    {
+        return {
+            props: {
+                error: error.response.data.detail, //django throws error by default in this detail property.
+            }
         }
     }
 }
