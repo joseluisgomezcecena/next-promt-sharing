@@ -18,7 +18,8 @@ export default function JobDetailsPage({job, candidates, error}) {
     console.log('candidates:', candidates);
     console.log('error:', error);
 
-    if (error.includes("Not found")) return <NotFound></NotFound>
+    //if (error.includes("Not found")) return <NotFound></NotFound>
+    if (error) return <NotFound></NotFound>
 
     return (
         <Layout title={job.title}>
